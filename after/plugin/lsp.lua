@@ -9,7 +9,7 @@ local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ['<CR>'] = cmp.mapping.confirm({ select = true }),
   ["<C-Space>"] = cmp.mapping.complete(),
 })
 
@@ -21,7 +21,7 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
+    suggest_lsp_servers = true,
     sign_icons = {
         error = 'E',
         warn = 'W',
@@ -47,5 +47,33 @@ end)
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+if not configs.intelephense then
+    configs.intelephense = {
+        default_config = {
+            cmd = { 'intelephense', '--stdio' };
+            filetypes = { 'php' };
+            root_dir = function(fname)
+                return vim.loop.cwd()
+            end;
+            settings = {
+                intelephense = {
+                    files = {
+                        maxSize = 1000000;
+                    };
+                    environment = {
+                    }
+                }
+            }
+        }
+    }
+end
+
+lspconfig.intelephense.setup { capabilities = capabilities } 
 
 lsp.setup()
