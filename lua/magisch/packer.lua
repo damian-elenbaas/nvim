@@ -51,13 +51,6 @@ return require('packer').startup(function(use)
     use("windwp/nvim-autopairs")
     use("windwp/nvim-ts-autotag")
     -- use {'neoclide/coc.nvim', branch = 'release'}
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
-        config = function()
-            require("nvim-tree").setup {}
-        end
-    }
+    -- use ('nvim-tree/nvim-tree.lua')
+    -- use ('kyazdani42/nvim-web-devicons')
 end)
