@@ -6,7 +6,6 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         -- or                            , branch = '0.1.x',
@@ -14,7 +13,6 @@ return require('packer').startup(function(use)
     }
 
     use { "catppuccin/nvim", as = "catppuccin" }
-
 
     use({'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}})
     use('nvim-treesitter/playground')
@@ -29,10 +27,10 @@ return require('packer').startup(function(use)
             -- LSP Support
             {'neovim/nvim-lspconfig'},             -- Required
             {                                      -- Optional
-            'williamboman/mason.nvim',
-            run = function()
-                pcall(vim.cmd, 'MasonUpdate')
-            end,
+                'williamboman/mason.nvim',
+                run = function()
+                    pcall(vim.cmd, 'MasonUpdate')
+                end,
             },
             {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
@@ -40,16 +38,17 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},     -- Required
             {'hrsh7th/cmp-nvim-lsp'}, -- Required
             {'L3MON4D3/LuaSnip'},     -- Required
-         }
-     }
+        }
+    }
 
-     use {
-         'nvim-lualine/lualine.nvim',
-         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-     }
-     --gcc to comment
-     use("numToStr/Comment.nvim")
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+    --gcc to comment
+    use("numToStr/Comment.nvim")
 
-     use("windwp/nvim-autopairs")
-     use("windwp/nvim-ts-autotag")
+    use("windwp/nvim-autopairs")
+    use("windwp/nvim-ts-autotag")
+    use {'neoclide/coc.nvim', branch = 'release'}
 end)
