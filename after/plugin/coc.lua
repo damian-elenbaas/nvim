@@ -1,3 +1,6 @@
+if true then
+    return
+end
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appeared/became resolved
 vim.opt.signcolumn = "yes"
