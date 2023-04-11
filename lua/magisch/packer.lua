@@ -53,4 +53,15 @@ return require('packer').startup(function(use)
     -- use {'neoclide/coc.nvim', branch = 'release'}
     -- use ('nvim-tree/nvim-tree.lua')
     -- use ('kyazdani42/nvim-web-devicons')
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 end)
