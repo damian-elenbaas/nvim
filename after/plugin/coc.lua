@@ -23,7 +23,7 @@ keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 
 -- Make <CR> to accept selected completion item or notify coc.nvim to format
 -- <C-g>u breaks current undo, please make your own choice
-keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+keyset("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
 -- Use <c-j> to trigger snippets
 -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
@@ -166,7 +166,7 @@ local opts = {silent = true, nowait = true}
 -- Show all diagnostics
 keyset("n", "<space>a", ":<C-u>CocList diagnostics<cr>", opts)
 -- Manage extensions
-keyset("n", "<space>e", ":<C-u>CocList extensions<cr>", opts)
+-- keyset("n", "<space>e", ":<C-u>CocList extensions<cr>", opts)
 -- Show commands
 keyset("n", "<space>c", ":<C-u>CocList commands<cr>", opts)
 -- Find symbol of current document
