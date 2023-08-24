@@ -1,4 +1,9 @@
-require("catppuccin").setup({
+local setup, catppuccin = pcall(require, "catppuccin")
+if not setup then
+    return
+end
+
+catppuccin.setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     background = { -- :h background
         light = "latte",

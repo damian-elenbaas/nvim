@@ -1,4 +1,4 @@
-vim.opt.guicursor = [[n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20]] 
+vim.opt.guicursor = [[n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20]]
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -10,7 +10,7 @@ vim.opt.expandtab = true
 
 vim.opt.autoindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
