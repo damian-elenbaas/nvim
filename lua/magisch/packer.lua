@@ -85,5 +85,6 @@ return require('packer').startup(function(use)
         'github/copilot.vim'
     }
     -- use('andweeb/presence.nvim')
-   -- use 'mfussenegger/nvim-jdtls'
+    -- use 'mfussenegger/nvim-jdtls'
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 end)
