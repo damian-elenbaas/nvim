@@ -64,6 +64,7 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use("github/copilot.vim")
     use {
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
@@ -79,10 +80,6 @@ return require('packer').startup(function(use)
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-    }
-
-    use {
-        'github/copilot.vim'
     }
     -- use('andweeb/presence.nvim')
     -- use 'mfussenegger/nvim-jdtls'
