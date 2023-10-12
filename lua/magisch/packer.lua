@@ -15,6 +15,7 @@ return require('packer').startup(function(use)
     -- use { "catppuccin/nvim", as = "catppuccin" }
     -- Tokio Night theme
     use { 'folke/tokyonight.nvim', as = 'tokyonight' }
+    use { "bluz71/vim-moonfly-colors", as = "moonfly" }
 
     use({'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}})
     use('nvim-treesitter/playground')
