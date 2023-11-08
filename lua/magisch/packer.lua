@@ -87,4 +87,6 @@ return require('packer').startup(function(use)
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
     use{'norcalli/nvim-colorizer.lua', as = 'colorizer'}
+
+    use { 'jrop/mongo.nvim' }
 end)
