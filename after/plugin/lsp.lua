@@ -77,4 +77,10 @@ end
 
 lspconfig.intelephense.setup { capabilities = capabilities } 
 
+local util = require("lspconfig.util")
+lspconfig.angularls.setup {
+    root_dir = util.root_pattern("angular.json", "project.json")
+}
+
 lsp.setup()
+
