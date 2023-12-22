@@ -17,3 +17,4 @@ vim.keymap.set("i", "<C-j>", [[<C-\><C-n>:call search('[>)\]}"'']', 'W')<CR>a]])
 -- vim.keymap.set("n", "+", [[<cmd>horizontal resize +2<cr>]]) -- make the window bigger horizontally by pressing shift and =
 -- vim.keymap.set("n", "_", [[<cmd>horizontal resize -2<cr>]]) -- make the window smaller horizontally by pressing shift and -
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('v', '<leader>p', '"_dP')
