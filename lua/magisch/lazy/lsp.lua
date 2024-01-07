@@ -103,6 +103,18 @@ return {
                     lspconfig.angularls.setup {
                         root_dir = util.root_pattern("angular.json", "project.json")
                     }
+                end,
+                lua_ls = function()
+                    local lspconfig = require('lspconfig')
+                    lspconfig.lua_ls.setup {
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { 'vim' }
+                                }
+                            }
+                        }
+                    }
                 end
             },
         })
