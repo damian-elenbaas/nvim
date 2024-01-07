@@ -5,11 +5,10 @@ return {
         local colorizer = require("colorizer")
         colorizer.setup(
             {
-                '*',
-                html = { mode = 'background' },
+                '*'
             },
             {
-                mode = 'foreground'
+                mode = 'background'
             }
         )
     end
