@@ -8,6 +8,7 @@ return {
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/cmp-nvim-lsp-signature-help' },
         { 'L3MON4D3/LuaSnip' },
         -- Optional
         { 'williamboman/mason.nvim' },
@@ -39,7 +40,12 @@ return {
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<Tab>'] = nil,
                 ['<S-Tab>'] = nil
-            })
+            }),
+            sources = {
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' },
+                { name = 'nvim_lsp_signature_help' }
+            }
         })
 
         lsp.set_preferences({
