@@ -3,12 +3,16 @@ return {
   config = function()
     local format_on_save = require("format-on-save")
     local formatters = require("format-on-save.formatters")
+    local vim_notify = require("format-on-save.error-notifiers.vim-notify")
 
     format_on_save.setup({
+      error_notifier = vim_notify,
+
       exclude_path_patterns = {
         "/node_modules/",
         ".local/share/nvim/lazy",
       },
+
       formatter_by_ft = {
         css = formatters.lsp,
         cs = formatters.lsp,
@@ -60,7 +64,6 @@ return {
       fallback_formatter = {
         formatters.remove_trailing_whitespace,
         formatters.remove_trailing_newlines,
-        formatters.prettierd,
       },
 
       -- By default, all shell commands are prefixed with "sh -c" (see PR #3)
