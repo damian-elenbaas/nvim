@@ -13,6 +13,7 @@ return {
     -- Optional
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
+    { 'jay-babu/mason-nvim-dap.nvim' }
 
   },
   build = function()
@@ -70,6 +71,10 @@ return {
 
     require("mason").setup({
       PATH = "prepend",
+    })
+    require("mason-nvim-dap").setup({
+      ensure_installed = { 'coreclr' },
+      automatic_installation = true,
     })
     require('mason-lspconfig').setup({
       ensure_installed = {},
@@ -150,6 +155,25 @@ return {
                   unknownAtRules = "ignore"
                 }
               }, }
+          }
+        end,
+        rust_analyzer = function()
+          require('lspconfig').rust_analyzer.setup {
+            -- Other Configs ...
+            settings = {
+              ["rust-analyzer"] = {
+                -- Other Settings ...
+                procMacro = {
+                  ignored = {
+                    leptos_macro = {
+                      -- optional: --
+                      -- "component",
+                      "server",
+                    },
+                  },
+                },
+              },
+            }
           }
         end,
       },
