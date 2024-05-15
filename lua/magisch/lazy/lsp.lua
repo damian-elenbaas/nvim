@@ -107,6 +107,9 @@ return {
                     files = {
                       maxSize = 1000000,
                     },
+                    format = {
+                      braces = "k&r",
+                    },
                     environment = {
                     }
                   }
