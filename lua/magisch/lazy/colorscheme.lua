@@ -66,7 +66,13 @@ return {
         borderless_telescope = true,
 
         -- Set terminal colors used in `:terminal`
-        terminal_colors = true
+        terminal_colors = true,
+
+        theme = {
+          highlights = {
+            Boolean = { fg = "#fc6d6d", bg = "NONE", italic = false }
+          }
+        }
       })
       vim.cmd("colorscheme cyberdream")
     end
