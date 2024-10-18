@@ -206,6 +206,14 @@ return {
             }
           }
         end,
+        omnisharp = function()
+          local lspconfig = require('lspconfig')
+          lspconfig.omnisharp.setup {
+            cmd = { 'omnisharp', '--languageserver' },
+            root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
+            filetypes = { 'cs', 'razor' },
+          }
+        end,
       },
     })
 

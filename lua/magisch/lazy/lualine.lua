@@ -1,94 +1,57 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
   opts = function()
-    local colors = require("cyberdream.colors").default
-    local cyberdream = require("lualine.themes.cyberdream")
-    local copilot_colors = {
-      [""] = { fg = colors.grey, bg = colors.none },
-      ["Normal"] = { fg = colors.grey, bg = colors.none },
-      ["Warning"] = { fg = colors.red, bg = colors.none },
-      ["InProgress"] = { fg = colors.yellow, bg = colors.none },
-    }
-    return {
+    local opts = {
       options = {
-        component_separators = { left = " ", right = " " },
-        section_separators = { left = " ", right = " " },
-        theme = cyberdream,
+        theme = "eldritch",
+        component_separators = "",
+        section_separators = { left = "", right = "" },
+        icons_enabled = true,
         globalstatus = true,
-        disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+        refresh = { statusline = 1000, tabline = 1000 },
+        disabled_filetypes = { statusline = { "dashboard" }, tabline = { "dashboard" } },
       },
+      extensions = { "neo-tree", "lazy" },
       sections = {
-        lualine_a = { { "mode", icon = "" } },
-        lualine_b = { { "branch", icon = "" } },
+        lualine_a = { { "mode", separator = { left = "", right = "" } } },
+        lualine_b = { "branch" },
         lualine_c = {
-          {
-            "diagnostics",
-            symbols = {
-              error = " ",
-              warn = " ",
-              info = " ",
-              hint = "󰝶 ",
-            },
-          },
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          {
-            "filename",
-            symbols = { modified = "  ", readonly = "", unnamed = "" },
-          },
-          {
-            function()
-              return require("nvim-navic").get_location()
-            end,
-            cond = function()
-              return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            end,
-            color = { fg = colors.grey, bg = colors.none },
-          },
+          "filename",
+          { "diff", symbols = { added = " ", modified = "󰣕 ", removed = " " } },
+          "diagnostics",
         },
         lualine_x = {
           {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            color = { fg = colors.green },
+            "copilot",
+            show_loading = true,
+            show_colors = true,
+            padding = { right = 1, left = 1 },
+            symbols = {
+              status = {
+                icons = {
+                  enabled = " ",
+                  sleep = " 󰒲",
+                  disabled = " ",
+                  warning = " ",
+                  unknown = " ",
+                },
+                hl = {
+                  sleep = "#04d1f9",
+                },
+              },
+            },
           },
-          {
-            function()
-              local icon = " "
-              local status = require("copilot.api").status.data
-              return icon .. (status.message or "")
-            end,
-            cond = function()
-              local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
-              return ok and #clients > 0
-            end,
-            color = function()
-              if not package.loaded["copilot"] then
-                return
-              end
-              local status = require("copilot.api").status.data
-              return copilot_colors[status.status] or copilot_colors[""]
-            end,
-          },
-          { "diff" },
         },
         lualine_y = {
-          {
-            "progress",
-          },
-          {
-            "location",
-            color = { fg = colors.cyan, bg = colors.none },
-          },
+          "filetype",
         },
         lualine_z = {
-          function()
-            return "  " .. os.date("%X") .. " 🚀 "
-          end,
-        },
+          "location"
+        }
       },
-
-      extensions = { "lazy", "toggleterm", "mason", "neo-tree", "trouble" },
     }
+
+    return opts
   end,
+  dependencies = { "nvim-tree/nvim-web-devicons", "eldritch-theme/eldritch.nvim" },
 }
