@@ -12,6 +12,8 @@ return {
     { 'L3MON4D3/LuaSnip' },
     { 'saadparwaiz1/cmp_luasnip' },
     { 'onsails/lspkind.nvim' },
+    -- Roslyn
+    { 'seblj/roslyn.nvim' },
     -- Optional
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
@@ -27,6 +29,13 @@ return {
     lsp.on_attach(function(client, bufnr)
       lsp.default_keymaps({ buffer = bufnr })
     end)
+
+    -- DOTNET LSP
+    require('roslyn').setup({
+      config = {
+        on_attach = lsp.on_attach
+      }
+    })
 
     local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
