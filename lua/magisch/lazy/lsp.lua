@@ -30,13 +30,6 @@ return {
       lsp.default_keymaps({ buffer = bufnr })
     end)
 
-    -- DOTNET LSP
-    require('roslyn').setup({
-      config = {
-        on_attach = lsp.on_attach
-      }
-    })
-
     local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -216,15 +209,28 @@ return {
           }
         end,
         omnisharp = function()
+          local capabilities = require('cmp_nvim_lsp').default_capabilities()
           local lspconfig = require('lspconfig')
-          lspconfig.omnisharp.setup {
-            cmd = { 'omnisharp', '--languageserver' },
-            root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
-            filetypes = { 'cs', 'razor' },
-          }
+          lspconfig.omnisharp.setup({
+            capabilities = capabilities,
+            enable_roslyn_analysers = true,
+            enable_import_completion = true,
+            organize_imports_on_format = true,
+            enable_decompilation_support = true,
+            filetypes = { 'cs', 'vb', 'csproj', 'sln', 'slnx', 'props', 'csx', 'targets' }
+          })
         end,
       },
     })
+
+    -- DOTNET LSP
+    -- local lspconfig = require('lspconfig')
+    -- require('roslyn').setup({
+    --   config = {
+    --     on_attach = lsp.on_attach,
+    --     root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
+    --   }
+    -- })
 
     lsp.setup()
   end
