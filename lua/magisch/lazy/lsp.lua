@@ -224,13 +224,13 @@ return {
     })
 
     -- DOTNET LSP
-    -- local lspconfig = require('lspconfig')
-    -- require('roslyn').setup({
-    --   config = {
-    --     on_attach = lsp.on_attach,
-    --     root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
-    --   }
-    -- })
+    local lspconfig = require('lspconfig')
+    require('roslyn').setup({
+      config = {
+        on_attach = lsp.on_attach,
+        root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
+      }
+    })
 
     lsp.setup()
   end

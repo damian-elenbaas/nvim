@@ -3,19 +3,16 @@ return {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("oil").setup {
+      require("oil").setup({
         columns = { "icon" },
         keymaps = {
-          ["<C-h>"] = false,
           ["<M-h>"] = "actions.select_split",
         },
+        use_default_keymaps = false,
         view_options = {
           show_hidden = true,
         },
-        -- win_options = {
-        --   winbar = "%{v:lua.require('oil').get_current_dir()}",
-        -- },
-      }
+      })
 
       -- Open parent directory in current window
       vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open parent directory" })
