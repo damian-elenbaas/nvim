@@ -36,5 +36,21 @@ return {
       "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
     },
-  }, 
+  },
+  config = function()
+    require("trouble").setup {
+      modes = {
+        lsp_references = {
+          win = {
+            size = 0.20
+          }
+        },
+        symbols = {
+          win = {
+            size = 0.20
+          }
+        },
+      }
+    }
+  end
 }
