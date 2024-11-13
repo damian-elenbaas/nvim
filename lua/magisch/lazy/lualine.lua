@@ -3,7 +3,7 @@ return {
   opts = function()
     local opts = {
       options = {
-        theme = "eldritch",
+        theme = "auto",
         component_separators = "",
         section_separators = { left = "", right = "" },
         icons_enabled = true,
