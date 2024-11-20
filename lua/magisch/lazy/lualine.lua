@@ -1,24 +1,28 @@
 return {
   "nvim-lualine/lualine.nvim",
   opts = function()
+    local git_blame = require('gitblame')
+
+    -- This disables showing of the blame text next to the cursor
+    vim.g.gitblame_display_virtual_text = 0
+
     local opts = {
       options = {
         theme = "auto",
         component_separators = "",
-        section_separators = { left = "", right = "" },
         icons_enabled = true,
         globalstatus = true,
-        refresh = { statusline = 1000, tabline = 1000 },
         disabled_filetypes = { statusline = { "dashboard" }, tabline = { "dashboard" } },
       },
-      extensions = { "neo-tree", "lazy" },
+      extensions = { "oil", "lazy" },
       sections = {
-        lualine_a = { { "mode", separator = { left = "", right = "" } } },
+        lualine_a = { { "mode" } },
         lualine_b = { "branch" },
         lualine_c = {
           "filename",
           { "diff", symbols = { added = " ", modified = "󰣕 ", removed = " " } },
           "diagnostics",
+          { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
         },
         lualine_x = {
           {
@@ -53,5 +57,5 @@ return {
 
     return opts
   end,
-  dependencies = { "nvim-tree/nvim-web-devicons", "eldritch-theme/eldritch.nvim" },
+  dependencies = { "nvim-tree/nvim-web-devicons", "f-person/git-blame.nvim" },
 }

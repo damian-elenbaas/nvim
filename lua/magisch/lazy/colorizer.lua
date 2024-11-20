@@ -5,7 +5,9 @@ return {
     local colorizer = require("colorizer")
     colorizer.setup(
       {
-        '*'
+        'html',
+        'css',
+        'razor'
       },
       {
         mode = 'background'
