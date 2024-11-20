@@ -1,4 +1,4 @@
--- vim.api.nvim_exec('language en_US', true)
+vim.cmd("language en_US")
 vim.opt.autoindent = true
 vim.opt.backup = false
 vim.opt.colorcolumn = "80"

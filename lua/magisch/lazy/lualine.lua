@@ -16,7 +16,9 @@ return {
       },
       extensions = { "oil", "lazy" },
       sections = {
-        lualine_a = { { "mode" } },
+        lualine_a = {
+          { 'mode', fmt = function(res) return res:sub(1, 1) end }
+        },
         lualine_b = { "branch" },
         lualine_c = {
           "filename",
