@@ -1,4 +1,4 @@
-vim.cmd("language en_US")
+vim.loop.os_setenv("LANG", "en_US.UTF-8")
 vim.opt.autoindent = true
 vim.opt.backup = false
 vim.opt.colorcolumn = "80"
