@@ -61,9 +61,14 @@ return {
     priority = 1000,
     config = function()
       require("rose-pine").setup {
-        disable_background = true
+        disable_background = true,
+        extend_background_behind_borders = false,
+        styles = {
+          bold = true,
+          italic = true,
+          transparency = false,
+        },
       }
-      vim.cmd [[colorscheme rose-pine]]
       ColorMyPencils()
     end
   }
