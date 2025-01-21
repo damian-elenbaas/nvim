@@ -1,3 +1,5 @@
+local utils = require("magisch.utils")
+
 return {
   {
     "zbirenbaum/copilot.lua",
@@ -58,5 +60,64 @@ return {
   },
   {
     "AndreM222/copilot-lualine",
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    config = function()
+      local chat = require("CopilotChat")
+
+      chat.setup {
+        prompts = {
+          Explain = {
+            mapping = '<leader>ae',
+            description = 'AI Explain',
+          },
+          Review = {
+            mapping = '<leader>ar',
+            description = 'AI Review',
+          },
+          Tests = {
+            mapping = '<leader>at',
+            description = 'AI Tests',
+          },
+          Fix = {
+            mapping = '<leader>af',
+            description = 'AI Fix',
+          },
+          Optimize = {
+            mapping = '<leader>ao',
+            description = 'AI Optimize',
+          },
+          Docs = {
+            mapping = '<leader>ad',
+            description = 'AI Documentation',
+          },
+          Commit = {
+            mapping = '<leader>ac',
+            description = 'AI Generate Commit',
+          },
+        },
+      }
+
+      utils.au('BufEnter', {
+        pattern = 'copilot-*',
+        callback = function()
+          vim.opt_local.relativenumber = false
+          vim.opt_local.number = false
+          vim.opt.colorcolumn = ''
+        end,
+      })
+
+      vim.keymap.set({ 'n' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
+      vim.keymap.set({ 'v' }, '<leader>aa', chat.open, { desc = 'AI Open' })
+      vim.keymap.set({ 'n' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
+      vim.keymap.set({ 'n' }, '<leader>as', chat.stop, { desc = 'AI Stop' })
+      vim.keymap.set({ 'n' }, '<leader>am', chat.select_model, { desc = 'AI Model' })
+    end
+    -- See Commands section for default commands if you want to lazy load on them
   },
 }
