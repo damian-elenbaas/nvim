@@ -8,17 +8,7 @@ return {
         keymaps = {
           ["<M-h>"] = "actions.select_split",
           ["<CR>"] = "actions.select",
-          ["<C-l>"] = "actions.refresh",
-          ["<leader>gs"] = {
-            desc = "Open in Fugit2",
-            callback = function()
-              local oil = require("oil")
-              local dir = oil.get_current_dir()
-              if dir then
-                vim.cmd("Fugit2 " .. dir)
-              end
-            end
-          },
+          ["<C-l>"] = "actions.refresh"
         },
         use_default_keymaps = false,
         view_options = {
