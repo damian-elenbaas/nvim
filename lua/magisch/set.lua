@@ -17,3 +17,4 @@ vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 vim.opt.wrap = true
+vim.opt.splitright = true
