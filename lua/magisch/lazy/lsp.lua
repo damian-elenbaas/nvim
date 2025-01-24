@@ -165,6 +165,12 @@ return {
               Lua = {
                 diagnostics = {
                   globals = { 'vim' }
+                },
+                workspace = {
+                  library = {
+                    vim.fn.expand('$VIMRUNTIME/lua'),
+                    vim.fn.expand('$VIMRUNTIME/lua/vim/lsp'),
+                  }
                 }
               }
             }
