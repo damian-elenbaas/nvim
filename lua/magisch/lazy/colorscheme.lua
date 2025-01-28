@@ -71,6 +71,7 @@ return {
 
           Type { fg = hsl(250, 20, 70) },
           NormalFloat { bg = hsl(0, 0, 15) },
+          Boolean { fg = hsl(190, 100, 35) },
         }
       end)
 
