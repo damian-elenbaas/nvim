@@ -12,8 +12,6 @@ return {
     { 'L3MON4D3/LuaSnip' },
     { 'saadparwaiz1/cmp_luasnip' },
     { 'onsails/lspkind.nvim' },
-    -- Roslyn
-    { 'seblj/roslyn.nvim' },
     -- Omisharp extended
     { 'Hoffs/omnisharp-extended-lsp.nvim' },
     -- Optional
@@ -143,6 +141,10 @@ return {
 
     require("mason").setup({
       PATH = "prepend",
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:crashdummyy/mason-registry',
+      },
     })
     require("mason-nvim-dap").setup({
       ensure_installed = { 'coreclr' },
@@ -338,18 +340,6 @@ return {
         end,
       },
     })
-
-    -- DOTNET LSP (Roslyn)
-    -- local lspconfig = require('lspconfig')
-    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-    -- require('roslyn').setup({
-    --   config = {
-    --     capabilities = capabilities,
-    --     on_attach = lsp.on_attach,
-    --     root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", "*.fsproj"),
-    --   }
-    -- })
 
     lsp.setup()
   end
