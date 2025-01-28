@@ -57,24 +57,20 @@ return {
 
       local custom_highlights = lush(function()
         return {
-          -- Very subtle, desaturated green for strings
-          String { fg = hsl(120, 15, 65) },
+          -- Very subtle, desaturated green for strings (increased saturation and lightness)
+          String { fg = hsl(120, 25, 70) },
 
-          -- Slightly warm, desaturated red-grey for constants
-          Constant { fg = hsl(0, 15, 65) },
+          -- Slightly warm, desaturated red-grey for constants (increased saturation and lightness)
+          Constant { fg = hsl(0, 25, 70) },
 
-          -- Cool grey for color column
-          ColorColumn { bg = hsl(220, 5, 15) },
+          -- Cool grey for color column (darker background)
+          ColorColumn { bg = hsl(220, 8, 12) },
 
-          -- Additional subtle highlights you might want:
-          -- Slightly cool grey for comments
-          Comment { fg = hsl(220, 10, 55) },
+          -- Slightly cool grey for comments (increased saturation, decreased lightness for better contrast)
+          Comment { fg = hsl(220, 15, 50) },
 
-          -- Warm grey for functions
-          Function { fg = hsl(30, 15, 70) },
-
-          -- Cool grey for keywords
-          Keyword { fg = hsl(220, 15, 75) }
+          Type { fg = hsl(250, 20, 70) },
+          NormalFloat { bg = hsl(0, 0, 15) },
         }
       end)
 
