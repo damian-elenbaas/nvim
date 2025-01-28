@@ -2,6 +2,12 @@ return {
   "rcarriga/nvim-notify",
   lazy = false,
   config = function()
+    local notify = require('notify')
+
+    notify.setup({
+      background_colour = "#000000"
+    })
+
     local banned_messages = { "No information available" }
     vim.notify = function(msg, ...)
       for _, banned in ipairs(banned_messages) do
@@ -9,7 +15,7 @@ return {
           return
         end
       end
-      return require("notify")(msg, ...)
+      return notify(msg, ...)
     end
   end
 }
