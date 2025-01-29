@@ -154,6 +154,12 @@ return {
       ensure_installed = {},
       handlers = {
         lsp.default_setup,
+        html = function()
+          local lspconfig = require('lspconfig')
+          lspconfig.html.setup {
+            filetypes = { 'html', 'razor' }
+          }
+        end,
         intelephense = function()
           local lspconfig = require('lspconfig')
           local configs = require('lspconfig.configs')
