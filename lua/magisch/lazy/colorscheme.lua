@@ -62,6 +62,7 @@ return {
 
           -- Slightly warm, desaturated red-grey for constants (increased saturation and lightness)
           Constant { fg = hsl(0, 25, 70) },
+          Number { fg = hsl(0, 25, 70) },
 
           -- Cool grey for color column (darker background)
           ColorColumn { bg = hsl(220, 8, 12) },
