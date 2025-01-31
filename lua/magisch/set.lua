@@ -18,3 +18,4 @@ vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 vim.opt.wrap = true
 vim.opt.splitright = true
+vim.g["fsharp#lsp_recommended_colorscheme"] = 0

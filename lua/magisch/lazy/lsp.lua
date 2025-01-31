@@ -17,7 +17,8 @@ return {
     -- Optional
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
-    { 'jay-babu/mason-nvim-dap.nvim' }
+    { 'jay-babu/mason-nvim-dap.nvim' },
+    { 'ionide/Ionide-vim' }
 
   },
   build = function()
@@ -349,5 +350,7 @@ return {
     })
 
     lsp.setup()
+
+    require 'ionide'.setup {}
   end
 }
