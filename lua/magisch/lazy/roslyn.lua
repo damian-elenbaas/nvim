@@ -3,32 +3,15 @@ return {
     'seblj/roslyn.nvim',
     ft = { 'cs', 'razor' },
     dependencies = {
-      -- {
-      --   -- By loading as a dependencies, we ensure that we are available to set
-      --   -- the handlers for roslyn
-      --   'tris203/rzls.nvim',
-      --   config = function()
-      --     ---@diagnostic disable-next-line: missing-fields
-      --     require('rzls').setup {}
-      --   end,
-      -- },
+      { 'saghen/blink.cmp' }
     },
     config = function()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('roslyn').setup {
+        capabilities = capabilities,
         args = {
           '--logLevel=Information',
           '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          -- '--razorSourceGenerator='
-          -- .. vim.fs.joinpath(vim.fn.stdpath 'data' --[[@as string]], 'mason', 'packages', 'roslyn', 'libexec', 'Microsoft.CodeAnalysis.Razor.Compiler.dll'),
-          -- '--razorDesignTimePath=' .. vim.fs.joinpath(
-          --   vim.fn.stdpath 'data' --[[@as string]],
-          --   'mason',
-          --   'packages',
-          --   'rzls',
-          --   'libexec',
-          --   'Targets',
-          --   'Microsoft.NET.Sdk.Razor.DesignTime.targets'
-          -- ),
         },
         ---@diagnostic disable-next-line: missing-fields
         config = {
