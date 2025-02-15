@@ -36,39 +36,16 @@ return {
               filetypes = { 'html', 'razor' }
             }
           end,
-          intelephense = function()
-            local configs = require('lspconfig.configs')
-
-            if not configs.intelephense then
-              configs.intelephense = {
-                default_config = {
-                  cmd = { 'intelephense', '--stdio' },
-                  filetypes = { 'php' },
-                  root_dir = function(_)
-                    return vim.loop.cwd()
-                  end,
-                  settings = {
-                    intelephense = {
-                      files = {
-                        maxSize = 1000000,
-                      },
-                      format = {
-                        braces = "k&r",
-                      },
-                      environment = {
-                      }
-                    }
-                  }
-                }
-              }
-            end
-
-            lspconfig.intelephense.setup { capabilities = capabilities }
+          phpactor = function()
+            lspconfig.phpactor.setup {
+              capabilities = capabilities,
+            }
           end,
           angularls = function()
             local util = require("lspconfig.util")
             lspconfig.angularls.setup {
-              root_dir = util.root_pattern("angular.json", "project.json")
+              root_dir = util.root_pattern("angular.json", "project.json"),
+              capabilities = capabilities,
             }
           end,
           lua_ls = function()
