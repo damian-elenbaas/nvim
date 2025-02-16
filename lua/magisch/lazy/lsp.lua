@@ -4,7 +4,7 @@ return {
     dependencies = {
       "saghen/blink.cmp",
       "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      -- "williamboman/mason-lspconfig.nvim",
       "ionide/Ionide-vim",
       {
         "folke/lazydev.nvim",
@@ -20,80 +20,58 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+      require("mason").setup()
       require 'ionide'.setup {
         capabilities = capabilities
       }
 
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        automatic_installation = {},
-        ensure_installed = {},
-        handlers = {
-          html = function()
-            lspconfig.html.setup {
-              filetypes = { 'html', 'razor' }
+      lspconfig.angularls.setup {
+        capabilities = capabilities,
+        root_dir = util.root_pattern("angular.json", "project.json"),
+      }
+
+      lspconfig.html.setup {
+        capabilities = capabilities,
+        filetypes = { 'html', 'razor', 'php' }
+      }
+
+      lspconfig.lua_ls.setup {
+        capabilities = capabilities,
+      }
+
+      lspconfig.cssls.setup {
+        capabilities = capabilities,
+        settings = {
+          css = { validate = true,
+            lint = {
+              unknownAtRules = "ignore"
             }
-          end,
-          phpactor = function()
-            lspconfig.phpactor.setup {
-              capabilities = capabilities,
+          },
+          scss = { validate = true,
+            lint = {
+              unknownAtRules = "ignore"
             }
-          end,
-          angularls = function()
-            local util = require("lspconfig.util")
-            lspconfig.angularls.setup {
-              root_dir = util.root_pattern("angular.json", "project.json"),
-              capabilities = capabilities,
+          },
+          less = { validate = true,
+            lint = {
+              unknownAtRules = "ignore"
             }
-          end,
-          lua_ls = function()
-            lspconfig.lua_ls.setup {
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { 'vim' }
-                  },
-                  workspace = {
-                    library = {
-                      vim.fn.expand('$VIMRUNTIME/lua'),
-                      vim.fn.expand('$VIMRUNTIME/lua/vim/lsp'),
-                      vim.fn.stdpath('data') .. '/lazy',
-                    }
-                  }
-                }
-              }
-            }
-          end,
-          jsonls = function()
-            require 'lspconfig'.jsonls.setup {
-              capabilities = capabilities,
-            }
-          end,
-          cssls = function()
-            lspconfig.cssls.setup {
-              settings = {
-                css = { validate = true,
-                  lint = {
-                    unknownAtRules = "ignore"
-                  }
-                },
-                scss = { validate = true,
-                  lint = {
-                    unknownAtRules = "ignore"
-                  }
-                },
-                less = { validate = true,
-                  lint = {
-                    unknownAtRules = "ignore"
-                  }
-                },
-              }
-            }
-          end,
-        },
-      })
+          },
+        }
+      }
+
+      lspconfig.phpactor.setup {
+        capabilities = capabilities,
+      }
+
+      lspconfig.ts_ls.setup {
+        capabilities = capabilities,
+        root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
+      }
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
