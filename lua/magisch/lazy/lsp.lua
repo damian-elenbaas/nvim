@@ -23,7 +23,13 @@ return {
       local util = require("lspconfig.util")
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      require("mason").setup()
+      require("mason").setup({
+        PATH = "prepend",
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:crashdummyy/mason-registry',
+        },
+      })
       require 'ionide'.setup {
         capabilities = capabilities
       }
