@@ -1,21 +1,35 @@
+local opt = vim.opt
+
+opt.autoindent = true
+opt.backup = false
+opt.colorcolumn = "80"
+opt.expandtab = true
+opt.isfname:append("@-@")
+opt.nu = true
+opt.relativenumber = true
+
+opt.inccommand = "split"
+
+-- Best search settings :)
+opt.smartcase = true
+opt.ignorecase = true
+opt.hlsearch = false
+opt.incsearch = true
+
+opt.scrolloff = 8
+opt.shiftwidth = 4
+opt.signcolumn = "yes"
+opt.softtabstop = 4
+opt.swapfile = false
+opt.tabstop = 4
+opt.termguicolors = true
+opt.updatetime = 50
+opt.shada = { "'10", "<0", "s10", "h" }
+opt.clipboard = "unnamedplus"
+
+opt.wrap = true
+opt.splitbelow = true
+opt.splitright = true
+
 vim.cmd("language en_US.UTF-8")
-vim.opt.autoindent = true
-vim.opt.backup = false
-vim.opt.colorcolumn = "80"
-vim.opt.expandtab = true
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.isfname:append("@-@")
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 8
-vim.opt.shiftwidth = 4
-vim.opt.signcolumn = "yes"
-vim.opt.softtabstop = 4
-vim.opt.swapfile = false
-vim.opt.tabstop = 4
-vim.opt.termguicolors = true
-vim.opt.updatetime = 50
-vim.opt.wrap = true
-vim.opt.splitright = true
 vim.g["fsharp#lsp_recommended_colorscheme"] = 0

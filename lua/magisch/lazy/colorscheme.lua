@@ -49,7 +49,7 @@ return {
       }
 
       vim.g.zenwritten = settings
-      vim.cmd([[colorscheme zenwritten]])
+      -- vim.cmd([[colorscheme zenwritten]])
 
       -- Define custom Lush spec
       local lush = require("lush")
@@ -80,4 +80,10 @@ return {
       lush.apply(custom_highlights)
     end
   },
+  {
+    "tjdevries/colorbuddy.nvim",
+    config = function()
+      vim.cmd.colorscheme("gruvbuddy")
+    end
+  }
 }
