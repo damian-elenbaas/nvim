@@ -1,28 +1,8 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "saghen/blink.cmp",
-      "williamboman/mason.nvim",
-      -- "williamboman/mason-lspconfig.nvim",
-      "ionide/Ionide-vim",
-      {
-        "folke/lazydev.nvim",
-        ft = "lua", -- only load on lua files
-        opts = {
-          library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
-            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          },
-        },
-      },
-    },
+    "williamboman/mason.nvim",
     config = function()
-      local lspconfig = require("lspconfig")
-      local util = require("lspconfig.util")
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
+      ---@diagnostic disable-next-line: missing-fields
       require("mason").setup({
         PATH = "prepend",
         registries = {
@@ -30,6 +10,36 @@ return {
           'github:crashdummyy/mason-registry',
         },
       })
+    end
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "emmet_ls",
+          "jsonls",
+          "tailwindcss",
+          "ts_ls",
+          "cssls",
+          "lua_ls",
+          "angularls",
+          "html",
+        }
+      })
+    end
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "saghen/blink.cmp",
+      "ionide/Ionide-vim",
+    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+
       require 'ionide'.setup {
         capabilities = capabilities
       }
@@ -41,7 +51,7 @@ return {
 
       lspconfig.html.setup {
         capabilities = capabilities,
-        filetypes = { 'html', 'razor', 'php' }
+        filetypes = { 'html', 'razor', 'php', 'heex' }
       }
 
       lspconfig.lua_ls.setup {
@@ -79,6 +89,47 @@ return {
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
       }
 
+      --tailwind
+      lspconfig.tailwindcss.setup {
+        capabilities = capabilities,
+        settings = {
+          tailwindCSS = {
+            validate = true,
+          },
+        },
+        init_options = {
+          userLanguages = {
+            heex = "html"
+          }
+        },
+        root_dir = function(fname)
+          -- Start search from the file's directory and go up to find the Tailwind config inside /assets
+          return util.root_pattern("tailwind.config.js", "tailwind.config.ts")(fname)
+              or util.root_pattern("assets/tailwind.config.js", "assets/tailwind.config.ts")(fname)
+              or util.root_pattern("package.json", ".git")(fname) -- Fallback to project root
+        end
+      }
+
+      lspconfig.emmet_ls.setup({
+        capabilities = capabilities,
+        filetypes = {
+          "css",
+          "elixir",
+          "eruby",
+          "heex",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "less",
+          "sass",
+          "scss",
+          "svelte",
+          "pug",
+          "typescriptreact",
+          "vue",
+        },
+      })
+
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf
@@ -96,5 +147,16 @@ return {
         end,
       })
     end
-  }
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
 }
