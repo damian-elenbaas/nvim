@@ -17,7 +17,6 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "emmet_ls",
           "jsonls",
           "tailwindcss",
           "ts_ls",
@@ -25,6 +24,7 @@ return {
           "lua_ls",
           "angularls",
           "html",
+          "intelephense"
         }
       })
     end
@@ -51,7 +51,7 @@ return {
 
       lspconfig.html.setup {
         capabilities = capabilities,
-        filetypes = { 'html', 'razor', 'php', 'heex' }
+        filetypes = { 'html', 'razor', 'heex' }
       }
 
       lspconfig.lua_ls.setup {
@@ -79,8 +79,16 @@ return {
         }
       }
 
-      lspconfig.phpactor.setup {
+      lspconfig.intelephense.setup {
         capabilities = capabilities,
+        root_dir = util.root_pattern("composer.json", ".git"),
+        settings = {
+          intelephense = {
+            files = {
+              maxSize = 10000000,
+            },
+          }
+        }
       }
 
       lspconfig.ts_ls.setup {
