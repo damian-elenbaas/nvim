@@ -10,6 +10,7 @@ return {
       require('roslyn').setup {
         capabilities = capabilities,
         args = {
+          '--stdio',
           '--logLevel=Information',
           '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
         },
