@@ -87,6 +87,9 @@ return {
             files = {
               maxSize = 10000000,
             },
+            format = {
+              braces = "k&r",
+            },
             environment = {
               includePaths = { "vendor", "lib" } -- Ensure vendor is included
             }
