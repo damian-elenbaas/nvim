@@ -19,10 +19,9 @@ return {
         ensure_installed = {
           "jsonls",
           "tailwindcss",
-          "ts_ls",
+          -- "ts_ls",
           "cssls",
           "lua_ls",
-          "angularls",
           "html",
           "intelephense"
         }
@@ -97,11 +96,11 @@ return {
         }
       }
 
-      lspconfig.ts_ls.setup {
-        capabilities = capabilities,
-        root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
-        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
-      }
+      -- lspconfig.ts_ls.setup {
+      --   capabilities = capabilities,
+      --   root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
+      --   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
+      -- }
 
       --tailwind
       lspconfig.tailwindcss.setup {
@@ -144,11 +143,27 @@ return {
         },
       })
 
+      lspconfig.volar.setup {
+        capabilities = capabilities,
+        -- add filetypes for typescript, javascript and vue
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        init_options = {
+          vue = {
+            -- disable hybrid mode
+            hybridMode = false,
+          },
+        },
+      }
+
       --golang
       lspconfig.gopls.setup {
         capabilities = capabilities,
         filetypes = { "go", "gomod" },
         root_dir = util.root_pattern("go.mod", ".git"),
+      }
+
+      lspconfig.templ.setup {
+        capabilities = capabilities,
       }
 
       vim.api.nvim_create_autocmd("LspAttach", {
