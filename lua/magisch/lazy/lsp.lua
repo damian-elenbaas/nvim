@@ -151,6 +151,11 @@ return {
         root_dir = util.root_pattern("go.mod", ".git"),
       }
 
+      lspconfig.jsonls.setup {
+        capabilities = capabilities,
+        filetypes = { "json", "jsonc" },
+      }
+
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf

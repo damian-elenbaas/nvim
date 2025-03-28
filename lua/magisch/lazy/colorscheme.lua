@@ -88,5 +88,13 @@ return {
       vim.api.nvim_set_hl(0, 'LineNr', { fg = 'lightgrey', bold = true })
       vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#444444', bold = false })
     end
+  },
+  {
+    "xiyaowong/transparent.nvim",
+    lazy = false,
+    config = function()
+      require("transparent").setup()
+      vim.cmd([[TransparentEnable]])
+    end
   }
 }
