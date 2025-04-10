@@ -1,36 +1,4 @@
-function ColorMyPencils(color)
-  color = color or "rose-pine"
-  vim.cmd.colorscheme(color)
-
-  local highlight_groups = {
-    "Normal",
-    "NormalNC",
-  }
-
-  for _, group in ipairs(highlight_groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "none" })
-  end
-end
-
 return {
-  -- {
-  --   "rose-pine/neovim",
-  --   name = "rose-pine",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("rose-pine").setup {
-  --       disable_background = true,
-  --       extend_background_behind_borders = false,
-  --       styles = {
-  --         bold = true,
-  --         italic = true,
-  --         transparency = false,
-  --       },
-  --     }
-  --     ColorMyPencils()
-  --   end
-  -- },
   {
     "zenbones-theme/zenbones.nvim",
     -- Optionally install Lush. Allows for more configuration or extending the colorscheme
@@ -49,7 +17,7 @@ return {
       }
 
       vim.g.zenwritten = settings
-      -- vim.cmd([[colorscheme zenwritten]])
+      vim.cmd([[colorscheme zenwritten]])
 
       -- Define custom Lush spec
       local lush = require("lush")
@@ -70,9 +38,17 @@ return {
           -- Slightly cool grey for comments (increased saturation, decreased lightness for better contrast)
           Comment { fg = hsl(220, 15, 50) },
 
+          -- Slightly warm, subtle yellow for functions
+          Function { fg = hsl(50, 25, 70) },
+
           Type { fg = hsl(250, 20, 70) },
           NormalFloat { bg = hsl(0, 0, 15) },
           Boolean { fg = hsl(190, 100, 35) },
+
+          -- Bright gray for current line number
+          LineNrAbove { fg = hsl(0, 0, 55) },
+          LineNr { fg = hsl(0, 0, 85) },
+          LineNrBelow { fg = hsl(0, 0, 55) },
         }
       end)
 
@@ -80,21 +56,4 @@ return {
       lush.apply(custom_highlights)
     end
   },
-  {
-    "tjdevries/colorbuddy.nvim",
-    config = function()
-      vim.cmd.colorscheme("gruvbuddy")
-      vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#444444', bold = false })
-      vim.api.nvim_set_hl(0, 'LineNr', { fg = 'lightgrey', bold = true })
-      vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#444444', bold = false })
-    end
-  },
-  {
-    "xiyaowong/transparent.nvim",
-    lazy = false,
-    config = function()
-      require("transparent").setup()
-      vim.cmd([[TransparentEnable]])
-    end
-  }
 }

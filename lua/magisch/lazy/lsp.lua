@@ -162,12 +162,15 @@ return {
 
           vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+          vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, { buffer = bufnr })
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
           vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr })
           vim.keymap.set("n", "rr", vim.lsp.buf.references, { buffer = bufnr })
           vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
           vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, { buffer = bufnr })
+          vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
+          vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, { buffer = bufnr })
           vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr })
         end,
