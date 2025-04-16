@@ -8,7 +8,6 @@ return {
 
     local opts = {
       options = {
-        theme = "zenwritten",
         component_separators = "",
         icons_enabled = true,
         globalstatus = true,
