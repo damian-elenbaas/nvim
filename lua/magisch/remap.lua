@@ -42,21 +42,21 @@ vim.keymap.set('n', '<leader>tl', function()
   vim.diagnostic.open_float({ scope = "line" })
 end, { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>bo", "<cmd>%bd|e#<cr>", { desc = "Close all buffers but the current one" })
-vim.keymap.set('n', '<C-w>q', function()
-  local win = vim.api.nvim_get_current_win()
-  local buf = vim.api.nvim_win_get_buf(win)
-  if vim.bo[buf].modified then
-    vim.ui.input({ prompt = 'Save changes? (y/n) ' }, function(input)
-      if input == 'y' then
-        vim.cmd.write()
-      end
-      vim.schedule(function()
-        vim.api.nvim_win_close(win, true)
-        vim.api.nvim_buf_delete(buf, { force = true })
-      end)
-    end)
-  else
-    vim.api.nvim_win_close(win, true)
-    vim.api.nvim_buf_delete(buf, {})
-  end
-end, { desc = "Close window and buffer (prompt if modified)" })
+-- vim.keymap.set('n', '<C-w>q', function()
+--   local win = vim.api.nvim_get_current_win()
+--   local buf = vim.api.nvim_win_get_buf(win)
+--   if vim.bo[buf].modified then
+--     vim.ui.input({ prompt = 'Save changes? (y/n) ' }, function(input)
+--       if input == 'y' then
+--         vim.cmd.write()
+--       end
+--       vim.schedule(function()
+--         vim.api.nvim_win_close(win, true)
+--         vim.api.nvim_buf_delete(buf, { force = true })
+--       end)
+--     end)
+--   else
+--     vim.api.nvim_win_close(win, true)
+--     vim.api.nvim_buf_delete(buf, {})
+--   end
+-- end, { desc = "Close window and buffer (prompt if modified)" })
