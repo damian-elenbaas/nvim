@@ -22,7 +22,6 @@ return {
           "ts_ls",
           "cssls",
           "lua_ls",
-          "angularls",
           "html",
           "intelephense"
         }
@@ -42,11 +41,6 @@ return {
 
       require 'ionide'.setup {
         capabilities = capabilities
-      }
-
-      lspconfig.angularls.setup {
-        capabilities = capabilities,
-        root_dir = util.root_pattern("angular.json", "project.json"),
       }
 
       lspconfig.html.setup {
