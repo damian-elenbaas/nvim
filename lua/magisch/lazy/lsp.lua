@@ -14,19 +14,6 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "jsonls",
-          "tailwindcss",
-          "ts_ls",
-          "cssls",
-          "lua_ls",
-          "html",
-          "intelephense"
-        }
-      })
-    end
   },
   {
     "neovim/nvim-lspconfig",
@@ -91,11 +78,10 @@ return {
         }
       }
 
-      lspconfig.ts_ls.setup {
-        capabilities = capabilities,
-        root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
-        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
-      }
+      -- NOTE: Replaced with Typescript Tools
+      -- lspconfig.ts_ls.setup {
+      --   capabilities = capabilities,
+      -- }
 
       --tailwind
       lspconfig.tailwindcss.setup {
