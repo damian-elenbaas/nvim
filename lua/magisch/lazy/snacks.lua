@@ -8,7 +8,7 @@ return {
     explorer = { enabled = false },
     indent = { enabled = false },
     input = { enabled = true },
-    image = { enabled = true },
+    image = { enabled = false },
     picker = { enabled = false },
     notifier = { enabled = false },
     quickfile = { enabled = true },

@@ -1,0 +1,1 @@
+return { "amadeus/vim-mjml" }

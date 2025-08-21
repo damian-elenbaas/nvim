@@ -89,6 +89,7 @@ return {
         settings = {
           tailwindCSS = {
             validate = true,
+            classFunctions = { "cva", "cx" },
           },
         },
         init_options = {
@@ -141,6 +142,11 @@ return {
         capabilities = capabilities,
       }
 
+      -- Basedpyright
+      lspconfig.basedpyright.setup {
+        capabilities = capabilities,
+      }
+
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf
@@ -156,8 +162,14 @@ return {
           vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, { buffer = bufnr })
-          vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
+          -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr })
+          vim.keymap.set(
+            { 'n', 'x' },
+            '<leader>ca',
+            '<cmd>lua require("fastaction").code_action()<CR>',
+            { desc = "Display code actions", buffer = bufnr }
+          )
         end,
       })
     end
