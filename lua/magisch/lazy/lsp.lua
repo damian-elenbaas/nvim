@@ -1,68 +1,60 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("mason").setup({
-        PATH = "prepend",
-        registries = {
-          'github:mason-org/mason-registry',
-          'github:crashdummyy/mason-registry',
-        },
-      })
-    end
+    "mason-org/mason.nvim",
+    opts = {
+      PATH = "prepend",
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:crashdummyy/mason-registry',
+      },
+    }
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
   },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "saghen/blink.cmp",
-      "ionide/Ionide-vim",
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local util = require("lspconfig.util")
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      require 'ionide'.setup {
-        capabilities = capabilities
-      }
-
-      lspconfig.html.setup {
+      vim.lsp.config("html", {
         capabilities = capabilities,
         filetypes = { 'html', 'razor', 'heex' }
-      }
+      })
 
-      lspconfig.lua_ls.setup {
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
-      }
+      })
 
-      lspconfig.cssls.setup {
+      vim.lsp.config("cssls", {
         capabilities = capabilities,
         settings = {
-          css = { validate = true,
+          css = {
+            validate = true,
             lint = {
               unknownAtRules = "ignore"
             }
           },
-          scss = { validate = true,
+          scss = {
+            validate = true,
             lint = {
               unknownAtRules = "ignore"
             }
           },
-          less = { validate = true,
+          less = {
+            validate = true,
             lint = {
               unknownAtRules = "ignore"
             }
           },
         }
-      }
+      })
 
-      lspconfig.intelephense.setup {
+      vim.lsp.config("intelephense", {
         capabilities = capabilities,
-        root_dir = util.root_pattern("composer.json", ".git"),
         settings = {
           intelephense = {
             files = {
@@ -76,15 +68,10 @@ return {
             }
           }
         }
-      }
-
-      -- NOTE: Replaced with Typescript Tools
-      -- lspconfig.ts_ls.setup {
-      --   capabilities = capabilities,
-      -- }
+      })
 
       --tailwind
-      lspconfig.tailwindcss.setup {
+      vim.lsp.config("tailwindcss", {
         capabilities = capabilities,
         settings = {
           tailwindCSS = {
@@ -96,16 +83,10 @@ return {
           userLanguages = {
             heex = "html"
           }
-        },
-        root_dir = function(fname)
-          -- Start search from the file's directory and go up to find the Tailwind config inside /assets
-          return util.root_pattern("tailwind.config.js", "tailwind.config.ts")(fname)
-              or util.root_pattern("assets/tailwind.config.js", "assets/tailwind.config.ts")(fname)
-              or util.root_pattern("package.json", ".git")(fname) -- Fallback to project root
-        end
-      }
+        }
+      })
 
-      lspconfig.emmet_ls.setup({
+      vim.lsp.config("emmet_ls", {
         capabilities = capabilities,
         filetypes = {
           "css",
@@ -126,26 +107,38 @@ return {
       })
 
       --golang
-      lspconfig.gopls.setup {
+      vim.lsp.config("gopls", {
         capabilities = capabilities,
         filetypes = { "go", "gomod" },
-        root_dir = util.root_pattern("go.mod", ".git"),
-      }
+      })
 
-      lspconfig.jsonls.setup {
+      vim.lsp.config("jsonls", {
         capabilities = capabilities,
         filetypes = { "json", "jsonc" },
-      }
+      })
 
       -- Svelte
-      lspconfig.svelte.setup {
+      vim.lsp.config("svelte", {
         capabilities = capabilities,
-      }
+      })
 
       -- Basedpyright
-      lspconfig.basedpyright.setup {
+      vim.lsp.config("basedpyright", {
         capabilities = capabilities,
-      }
+      })
+
+      vim.lsp.enable({
+        "html",
+        "lua_ls",
+        "cssls",
+        "intelephense",
+        "tailwindcss",
+        "emmet_ls",
+        "gopls",
+        "jsonls",
+        "svelte",
+        "basedpyright",
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
