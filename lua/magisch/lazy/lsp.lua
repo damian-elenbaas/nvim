@@ -11,6 +11,9 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    config = function()
+      require('mason-lspconfig').setup()
+    end
   },
   {
     "neovim/nvim-lspconfig",
@@ -20,17 +23,15 @@ return {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      vim.lsp.config("html", {
-        capabilities = capabilities,
-        filetypes = { 'html', 'razor', 'heex' }
+      vim.lsp.config('*', {
+        capabilities = capabilities
       })
 
-      vim.lsp.config("lua_ls", {
-        capabilities = capabilities,
+      vim.lsp.config("html", {
+        filetypes = { 'html', 'razor', 'heex', 'twig' }
       })
 
       vim.lsp.config("cssls", {
-        capabilities = capabilities,
         settings = {
           css = {
             validate = true,
@@ -54,7 +55,6 @@ return {
       })
 
       vim.lsp.config("intelephense", {
-        capabilities = capabilities,
         settings = {
           intelephense = {
             files = {
@@ -72,7 +72,6 @@ return {
 
       --tailwind
       vim.lsp.config("tailwindcss", {
-        capabilities = capabilities,
         settings = {
           tailwindCSS = {
             validate = true,
@@ -81,13 +80,13 @@ return {
         },
         init_options = {
           userLanguages = {
-            heex = "html"
+            heex = "html",
+            twig = "html"
           }
         }
       })
 
       vim.lsp.config("emmet_ls", {
-        capabilities = capabilities,
         filetypes = {
           "css",
           "elixir",
@@ -104,40 +103,6 @@ return {
           "typescriptreact",
           "vue",
         },
-      })
-
-      --golang
-      vim.lsp.config("gopls", {
-        capabilities = capabilities,
-        filetypes = { "go", "gomod" },
-      })
-
-      vim.lsp.config("jsonls", {
-        capabilities = capabilities,
-        filetypes = { "json", "jsonc" },
-      })
-
-      -- Svelte
-      vim.lsp.config("svelte", {
-        capabilities = capabilities,
-      })
-
-      -- Basedpyright
-      vim.lsp.config("basedpyright", {
-        capabilities = capabilities,
-      })
-
-      vim.lsp.enable({
-        "html",
-        "lua_ls",
-        "cssls",
-        "intelephense",
-        "tailwindcss",
-        "emmet_ls",
-        "gopls",
-        "jsonls",
-        "svelte",
-        "basedpyright",
       })
 
       vim.api.nvim_create_autocmd("LspAttach", {
