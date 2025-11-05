@@ -12,7 +12,12 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     config = function()
-      require('mason-lspconfig').setup()
+      require('mason-lspconfig').setup({
+        automatic_enable = {
+          -- ts_ls is configured by typescript-tools.nvim
+          exclude = { "ts_ls" }
+        }
+      })
     end
   },
   {

@@ -5,5 +5,8 @@ return {
   },
   config = function()
     require("todo-comments").setup()
-  end
+  end,
+  keys = {
+    { "<leader>tt", "<cmd>Trouble todo<cr>", desc = "Show all todos" }
+  }
 }
