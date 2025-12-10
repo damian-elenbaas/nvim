@@ -33,3 +33,5 @@ opt.splitright = true
 
 vim.cmd("language en_US.UTF-8")
 vim.g["fsharp#lsp_recommended_colorscheme"] = 0
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

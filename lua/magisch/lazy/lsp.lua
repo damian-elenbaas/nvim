@@ -33,7 +33,7 @@ return {
       })
 
       vim.lsp.config("html", {
-        filetypes = { 'html', 'razor', 'heex', 'twig' }
+        filetypes = { 'html', 'razor', 'heex', 'twig', 'templ' }
       })
 
       vim.lsp.config("cssls", {
