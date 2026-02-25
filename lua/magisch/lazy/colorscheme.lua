@@ -1,23 +1,11 @@
 return {
   {
-    "rebelot/kanagawa.nvim",
+    "miikanissi/modus-themes.nvim",
+    priority = 1000,
     config = function()
-      local kanagawa = require("kanagawa")
-
-      ---@diagnostic disable-next-line:missing-fields
-      kanagawa.setup({
-        colors = {
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = "none"
-              }
-            }
-          }
-        }
+      require("modus-themes").setup({
+        style = "modus_vivendi"
       })
-
-      -- kanagawa.load("wave")
     end
   },
   {
@@ -26,7 +14,22 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme oblique")
+      -- vim.cmd("colorscheme oblique")
+    end
+  },
+  {
+    "tjdevries/colorbuddy.nvim",
+    config = function()
+      -- vim.cmd.colorscheme("gruvbuddy")
+    end
+  },
+  {
+    "bluz71/vim-moonfly-colors",
+    name = "moonfly",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("moonfly")
     end
   }
 }

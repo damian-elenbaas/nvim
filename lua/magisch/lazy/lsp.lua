@@ -33,7 +33,14 @@ return {
       })
 
       vim.lsp.config("html", {
-        filetypes = { 'html', 'razor', 'heex', 'twig', 'templ' }
+        filetypes = { 'html', 'razor', 'heex', 'twig', 'templ' },
+        on_attach = function(client, bufnr)
+          -- Disable formatting for templ files
+          if vim.bo[bufnr].filetype == 'templ' then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+        end
       })
 
       vim.lsp.config("cssls", {
@@ -120,7 +127,14 @@ return {
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
           vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr })
           vim.keymap.set("n", "rr", vim.lsp.buf.references, { buffer = bufnr })
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+          vim.keymap.set("n", "K", function()
+            vim.lsp.buf.hover({
+              border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- Empty border so there is padding around the content, without showing the border itself
+              max_width = 80,
+              max_height = 20,
+              focusable = true,
+            })
+          end, { buffer = bufnr })
           vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, { buffer = bufnr })
           vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
