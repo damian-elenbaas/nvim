@@ -117,6 +117,15 @@ return {
         },
       })
 
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            telemetry = { enable = false },
+          },
+        },
+      })
+
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf
