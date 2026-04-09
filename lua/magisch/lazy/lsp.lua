@@ -98,25 +98,6 @@ return {
         }
       })
 
-      vim.lsp.config("emmet_ls", {
-        filetypes = {
-          "css",
-          "elixir",
-          "eruby",
-          "heex",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "less",
-          "sass",
-          "scss",
-          "svelte",
-          "pug",
-          "typescriptreact",
-          "vue",
-        },
-      })
-
       vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
@@ -138,7 +119,8 @@ return {
           vim.keymap.set("n", "rr", vim.lsp.buf.references, { buffer = bufnr })
           vim.keymap.set("n", "K", function()
             vim.lsp.buf.hover({
-              border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- Empty border so there is padding around the content, without showing the border itself
+              -- border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- Empty border so there is padding around the content, without showing the border itself
+              border = 'single',
               max_width = 80,
               max_height = 20,
               focusable = true,

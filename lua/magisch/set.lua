@@ -26,6 +26,7 @@ opt.termguicolors = true
 opt.updatetime = 50
 opt.shada = { "'10", "<0", "s10", "h" }
 opt.clipboard = "unnamedplus"
+opt.list = false
 
 opt.wrap = true
 opt.splitbelow = true

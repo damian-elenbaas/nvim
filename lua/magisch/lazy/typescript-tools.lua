@@ -4,6 +4,9 @@ return {
   config = function()
     require("typescript-tools").setup({
       settings = {
+        tsserver_file_preferences = {
+          importModuleSpecifierPreference = "non-relative",
+        },
         tsserver_path = (function()
           -- Try workspace TypeScript first
           local workspace_tsserver = vim.fs.find(

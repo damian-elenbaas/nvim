@@ -3,7 +3,7 @@ return {
     "folke/sidekick.nvim",
     lazy = false,
     opts = {
-      nes = { enabled = true },
+      nes = { enabled = false },
     },
     -- stylua: ignore
     keys = {

@@ -1,6 +1,7 @@
 return {
   {
     'seblj/roslyn.nvim',
+    enabled = false,
     ft = { 'cs', 'razor' },
     dependencies = {
       { 'saghen/blink.cmp' }
