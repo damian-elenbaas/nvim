@@ -42,7 +42,7 @@ return {
 
       -- Select the desired colorscheme variant
       -- vim.cmd("colorscheme acario_light")
-      vim.cmd("colorscheme acario_dark")
+      vim.cmd.colorscheme("acario_dark")
     end,
   }
 }
