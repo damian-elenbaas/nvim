@@ -29,8 +29,31 @@ vim.keymap.set('n', '<leader>hi', function()
   print(vim.inspect(result))
 end, { noremap = true, silent = false })
 vim.keymap.set("n", "<leader>th", ":botright 16split | terminal<CR>")
-vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
-vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
+
+local function in_fzf_terminal()
+  local ft = vim.bo.filetype
+  if ft == "fzf" or ft == "fzf-lua" then
+    return true
+  end
+
+  local name = vim.api.nvim_buf_get_name(0)
+  return name:match("term://.*fzf") ~= nil
+end
+
+vim.keymap.set("t", "<c-j>", function()
+  if in_fzf_terminal() then
+    return "<c-j>"
+  end
+  return "<c-\\><c-n><c-w><c-j>"
+end, { expr = true })
+
+vim.keymap.set("t", "<c-k>", function()
+  if in_fzf_terminal() then
+    return "<c-k>"
+  end
+  return "<c-\\><c-n><c-w><c-k>"
+end, { expr = true })
+
 vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
 vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
 vim.keymap.set("t", "<M-,>", "<c-\\><c-n><C-w>5<")

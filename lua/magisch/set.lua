@@ -32,6 +32,12 @@ opt.wrap = true
 opt.splitbelow = true
 opt.splitright = true
 
+-- folding
+opt.foldcolumn = "0"
+opt.foldtext = ""
+opt.foldlevel = 99
+opt.foldlevelstart = 1
+
 vim.cmd("language en_US.UTF-8")
 vim.g["fsharp#lsp_recommended_colorscheme"] = 0
 

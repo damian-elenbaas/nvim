@@ -13,10 +13,10 @@ return {
     "mason-org/mason-lspconfig.nvim",
     config = function()
       require('mason-lspconfig').setup({
-        -- automatic_enable = {
-        --   -- ts_ls is configured by typescript-tools.nvim
-        --   exclude = { "ts_ls" }
-        -- }
+        automatic_enable = {
+          -- ts_ls is configured by typescript-tools.nvim
+          exclude = { "ts_ls" }
+        }
       })
     end
   },
@@ -32,27 +32,27 @@ return {
         capabilities = capabilities
       })
 
-      vim.lsp.config("ts_ls", {
-        settings = {
-          tsserver_file_preferences = {
-            importModuleSpecifierPreference = "non-relative",
-          },
-          tsserver_path = (function()
-            -- Try workspace TypeScript first
-            local workspace_tsserver = vim.fs.find(
-              { "node_modules/typescript/lib/tsserver.js" },
-              { upward = true, path = vim.fn.getcwd() }
-            )[1]
-
-            if workspace_tsserver then
-              return workspace_tsserver
-            end
-
-            -- Let typescript-tools use its default
-            return nil
-          end)(),
-        }
-      })
+      -- vim.lsp.config("ts_ls", {
+      --   settings = {
+      --     tsserver_file_preferences = {
+      --       importModuleSpecifierPreference = "non-relative",
+      --     },
+      --     tsserver_path = (function()
+      --       -- Try workspace TypeScript first
+      --       local workspace_tsserver = vim.fs.find(
+      --         { "node_modules/typescript/lib/tsserver.js" },
+      --         { upward = true, path = vim.fn.getcwd() }
+      --       )[1]
+      --
+      --       if workspace_tsserver then
+      --         return workspace_tsserver
+      --       end
+      --
+      --       -- Let typescript-tools use its default
+      --       return nil
+      --     end)(),
+      --   }
+      -- })
 
       vim.lsp.config("html", {
         filetypes = { 'html', 'razor', 'heex', 'twig', 'templ' },
@@ -160,6 +160,9 @@ return {
             '<cmd>lua require("fastaction").code_action()<CR>',
             { desc = "Display code actions", buffer = bufnr }
           )
+
+          -- TODO: document_color causes issues, make issue
+          vim.lsp.document_color.enable(false);
         end,
       })
     end

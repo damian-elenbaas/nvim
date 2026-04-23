@@ -5,13 +5,9 @@ return {
     "sindrets/diffview.nvim", -- optional - Diff integration
 
     -- Only one of these is needed.
-    "nvim-telescope/telescope.nvim", -- optional
+    "ibhagwan/fzf-lua",
   },
   keys = {
     { '<leader>gs', mode = 'n', '<cmd>Neogit kind=floating<cr>' }
   },
-  config = function()
-    local neogit = require('neogit')
-    neogit.setup {}
-  end
 }

@@ -54,10 +54,11 @@ return {
         lualine_a = {
           { 'mode', fmt = function(res) return res:sub(1, 1) end }
         },
-        lualine_b = { "branch" },
-        lualine_c = {
+        lualine_b = {
           "filename",
           { "diff", symbols = { added = " ", modified = "󰣕 ", removed = " " } },
+        },
+        lualine_c = {
           "diagnostics",
           { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
         },
