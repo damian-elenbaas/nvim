@@ -65,3 +65,10 @@ vim.keymap.set('n', '<leader>tl', function()
   vim.diagnostic.open_float({ scope = "line" })
 end, { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>bo", "<cmd>%bd|e#<cr>", { desc = "Close all buffers but the current one" })
+
+vim.api.nvim_create_user_command('LspReset', function()
+  vim.cmd("lsp restart")
+  vim.diagnostic.reset()
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info" })

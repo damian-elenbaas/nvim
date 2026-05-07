@@ -8,6 +8,6 @@ return {
     "ibhagwan/fzf-lua",
   },
   keys = {
-    { '<leader>gs', mode = 'n', '<cmd>Neogit kind=floating<cr>' }
+    { '<leader>gs', mode = 'n', '<cmd>Neogit<cr>' }
   },
 }
