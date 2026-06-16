@@ -32,28 +32,6 @@ return {
         capabilities = capabilities
       })
 
-      -- vim.lsp.config("ts_ls", {
-      --   settings = {
-      --     tsserver_file_preferences = {
-      --       importModuleSpecifierPreference = "non-relative",
-      --     },
-      --     tsserver_path = (function()
-      --       -- Try workspace TypeScript first
-      --       local workspace_tsserver = vim.fs.find(
-      --         { "node_modules/typescript/lib/tsserver.js" },
-      --         { upward = true, path = vim.fn.getcwd() }
-      --       )[1]
-      --
-      --       if workspace_tsserver then
-      --         return workspace_tsserver
-      --       end
-      --
-      --       -- Let typescript-tools use its default
-      --       return nil
-      --     end)(),
-      --   }
-      -- })
-
       vim.lsp.config("html", {
         filetypes = { 'html', 'razor', 'heex', 'twig', 'templ' },
         on_attach = function(client, bufnr)
@@ -152,10 +130,10 @@ return {
           vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
           vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, { buffer = bufnr })
-          -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
+          -- vim.keymap.set({ 'n', 'x', 'v' }, "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr })
           vim.keymap.set(
-            { 'n', 'x' },
+            { 'n', 'x', 'v' },
             '<leader>ca',
             '<cmd>lua require("fastaction").code_action()<CR>',
             { desc = "Display code actions", buffer = bufnr }

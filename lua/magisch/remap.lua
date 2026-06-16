@@ -17,10 +17,10 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<M-,>", "<C-w>5<")
 vim.keymap.set("n", "<M-.>", "<C-w>5>")
-vim.keymap.set("n", "<M-[>", "<C-w>5+")
-vim.keymap.set("n", "<M-]>", "<C-w>5-")
+vim.keymap.set("n", "<M-,>", "<C-w>5<")
+vim.keymap.set("n", "≥", "<C-w>5>")
+vim.keymap.set("n", "≤", "<C-w>5<")
 vim.keymap.set('n', '<leader>td', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { silent = true, noremap = true })
@@ -58,6 +58,8 @@ vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
 vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
 vim.keymap.set("t", "<M-,>", "<c-\\><c-n><C-w>5<")
 vim.keymap.set("t", "<M-.>", "<c-\\><c-n><C-w>5>")
+vim.keymap.set("t", "≤", "<c-\\><c-n><C-w>5<")
+vim.keymap.set("t", "≥", "<c-\\><c-n><C-w>5>")
 vim.keymap.set("t", "<M-[>", "<c-\\><c-n><C-w>5+")
 vim.keymap.set("t", "<M-]>", "<c-\\><c-n><C-w>5-")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
@@ -72,3 +74,29 @@ vim.api.nvim_create_user_command('LspReset', function()
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info" })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  desc = 'Attach keymaps for quickfix list',
+  callback = function()
+    vim.keymap.set('n', 'dd', function()
+      local qf_list = vim.fn.getqflist()
+
+      local current_line_number = vim.fn.line('.')
+
+      if qf_list[current_line_number] then
+        table.remove(qf_list, current_line_number)
+
+        vim.fn.setqflist(qf_list, 'r')
+
+        local new_line_number = math.min(current_line_number, #qf_list)
+        vim.fn.cursor(new_line_number, 1)
+      end
+    end, {
+      buffer = true,
+      noremap = true,
+      silent = true,
+      desc = 'Remove quickfix item under cursor',
+    })
+  end
+})

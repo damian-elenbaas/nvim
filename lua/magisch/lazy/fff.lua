@@ -26,10 +26,5 @@ return {
       function() require('fff').live_grep({ query = vim.fn.expand("<cword>") }) end,
       desc = 'Search current word',
     },
-    {
-      "<leader>ps",
-      function() require('fff').live_grep({ query = vim.fn.input("Grep > ") }) end,
-      desc = 'Grep string',
-    },
   },
 }
