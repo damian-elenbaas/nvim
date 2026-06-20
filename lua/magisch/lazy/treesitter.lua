@@ -46,8 +46,8 @@ return {
 
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(args)
-          local ft = vim.bo.filetype
-          local bt = vim.bo.buftype
+          local ft = vim.bo[args.buf].filetype
+          local bt = vim.bo[args.buf].buftype
           local buf = args.buf
 
           if bt ~= "" then
@@ -92,15 +92,16 @@ return {
             return false
           end
 
-          if not vim.treesitter.language.get_lang(ft) then
+          local lang = vim.treesitter.language.get_lang(ft)
+          if not lang then
             return
           end
 
-          if vim.list_contains(treesitter.get_installed(), ft) then
-            highlight(buf, ft)
-          elseif vim.list_contains(treesitter.get_available(), ft) then
-            treesitter.install(ft):await(function()
-              highlight(buf, ft)
+          if vim.list_contains(treesitter.get_installed(), lang) then
+            highlight(buf, lang)
+          elseif vim.list_contains(treesitter.get_available(), lang) then
+            treesitter.install(lang):await(function()
+              highlight(buf, lang)
             end)
           end
         end,
