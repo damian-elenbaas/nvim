@@ -97,6 +97,15 @@ return {
         }
       })
 
+      -- Prisma's formatter auto-generates the opposite relation fields in other
+      -- models, so keep it from running (conform falls back to the LSP on save)
+      vim.lsp.config("prismals", {
+        on_attach = function(client, _)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
+      })
+
       vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
