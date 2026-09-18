@@ -77,8 +77,14 @@ return {
 
           ---------------------[ treesitter indent ]-------------------------------
 
-          if not vim.tbl_contains({ "python", "html", "yaml", "markdown" }, ft) then
-            vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+          -- only override indentexpr when the parser ships an indents query,
+          -- otherwise keep the runtime indent plugin (e.g. GetCSIndent for C#)
+          local indent_lang = vim.treesitter.language.get_lang(ft)
+          if not vim.tbl_contains({ "python", "html", "yaml", "markdown" }, ft)
+              and indent_lang
+              and vim.treesitter.language.add(indent_lang)
+              and vim.treesitter.query.get(indent_lang, "indents") then
+            vim.bo[buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
           end
 
           --------------------[ treesitter parsers ]-------------------------------
