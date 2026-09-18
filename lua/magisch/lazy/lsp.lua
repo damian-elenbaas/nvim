@@ -14,8 +14,7 @@ return {
     config = function()
       require('mason-lspconfig').setup({
         automatic_enable = {
-          -- ts_ls is configured by typescript-tools.nvim
-          exclude = { "ts_ls" }
+          exclude = { "ts_ls", "roslyn_ls" }
         }
       })
     end
