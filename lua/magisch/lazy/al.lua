@@ -1,5 +1,6 @@
 return {
   "abonckus/al.nvim",
+  ft = "al",
   dependencies = {
     "nvim-neotest/nvim-nio",
   },
