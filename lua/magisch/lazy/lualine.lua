@@ -93,7 +93,7 @@ return {
 
     local opts = {
       options = {
-        theme = modus_vivendi_deuteranopia,
+        theme = "oxide",
         component_separators = "",
       },
       sections = {

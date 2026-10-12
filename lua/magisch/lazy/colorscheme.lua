@@ -2,7 +2,7 @@ return {
   {
     "miikanissi/modus-themes.nvim",
     enabled = true,
-    priority = 1000,
+    lazy = true, -- loaded on demand by :colorscheme
     config = function()
       require("modus-themes").setup({
         style = "modus_vivendi",
@@ -89,6 +89,7 @@ return {
   {
     "rose-pine/neovim",
     name = "rose-pine",
+    lazy = true, -- loaded on demand by :colorscheme
     config = function()
       require('rose-pine').setup({
         styles = {
@@ -107,7 +108,24 @@ return {
       require('catppuccin').setup({
         transparent_background = true
       })
-      vim.cmd("colorscheme catppuccin")
+      -- vim.cmd("colorscheme catppuccin")
     end
+  },
+  {
+    "oxidescheme/nvim",
+    name = "oxide",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("oxide").setup({
+        on_highlights = function(hl, c)
+          -- Oxide ships DiffText with fg == bg (both c.text), rendering
+          -- changed words in diffview as unreadable white blocks
+          hl.DiffText = { bg = "#2f5373", fg = c.bright_text, bold = true }
+          return hl
+        end,
+      })
+      vim.cmd.colorscheme("oxide")
+    end,
   }
 }
