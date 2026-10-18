@@ -8,6 +8,55 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("i", "<C-j>", [[<C-\><C-n>:call search('[>)\]}"'']', 'W')<CR>a]])
 vim.keymap.set("n", "<leader>j", ":m+1<CR>")
 vim.keymap.set("n", "<leader>k", ":m-1<CR>")
+vim.keymap.set('n', 'Q', function()
+  local reg = vim.fn.reg_recorded()
+
+  return reg == '' and '' or ('@' .. reg)
+end, { expr = true })
+
+-- ============================================================================
+-- Multicursor
+-- ============================================================================
+-- Built-in Q and CTRL-L are taken over above/below, so expose them here
+-- Remember where a / or ? search landed, so <leader>m right after it means "every match"
+local search_pending, search_landing = false, nil
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  pattern = { "/", "?" },
+  desc = "Mark that a search is about to move the cursor",
+  callback = function()
+    search_pending = not vim.v.event.abort
+    search_landing = nil
+  end,
+})
+vim.api.nvim_create_autocmd("CursorMoved", {
+  desc = "Record where a search landed (first move after it)",
+  callback = function()
+    search_landing = search_pending
+        and { buf = vim.api.nvim_get_current_buf(), pos = vim.api.nvim_win_get_cursor(0), tick = vim.b.changedtick }
+        or nil
+    search_pending = false
+  end,
+})
+
+vim.keymap.set("n", "<leader>m", function()
+  local s = search_landing
+  search_landing = nil
+  if s and s.buf == vim.api.nvim_get_current_buf() and s.tick == vim.b.changedtick then
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local ok, match = pcall(vim.fn.searchpos, vim.fn.getreg("/"), "cnW")
+    if ok and vim.deep_equal(s.pos, pos) and match[1] == pos[1] and match[2] == pos[2] + 1 then
+      return "zqgn"
+    end
+  end
+  return "Q"
+end, { expr = true, desc = "Multicursor on every search match, else toggle at cursor" })
+-- Blockwise: a cursor on every selected column; otherwise one per line
+vim.keymap.set("x", "<leader>m", function()
+  return vim.fn.mode() == "\22" and "zql" or "Q"
+end, { expr = true, desc = "Place multicursors in selection" })
+vim.keymap.set("n", "<leader>M", function()
+  vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
+end, { desc = "Clear multicursors in buffer" })
 
 -- ============================================================================
 -- Search & replace
