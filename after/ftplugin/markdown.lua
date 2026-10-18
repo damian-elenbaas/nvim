@@ -5,4 +5,4 @@ if win_config.relative ~= "" then
   return
 end
 
-vim.opt_local.wrap = false
+vim.opt_local.wrap = true
