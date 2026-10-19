@@ -119,9 +119,13 @@ return {
     config = function()
       require("oxide").setup({
         on_highlights = function(hl, c)
-          -- Oxide ships DiffText with fg == bg (both c.text), rendering
-          -- changed words in diffview as unreadable white blocks
-          hl.DiffText = { bg = "#2f5373", fg = c.bright_text, bold = true }
+          -- Oxide sets fg = c.text on the diff groups, which overrides
+          -- treesitter colors in diffview. Background only keeps syntax
+          -- highlighting. DiffText also shipped with fg == bg (unreadable).
+          hl.DiffAdd = { bg = c.diff_add }
+          hl.DiffChange = { bg = c.diff_change }
+          hl.DiffDelete = { bg = c.diff_delete }
+          hl.DiffText = { bg = "#2f5373", bold = true }
           return hl
         end,
       })
